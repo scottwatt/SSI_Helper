@@ -11,7 +11,40 @@ export const STATES = {
     medicaidExpanded: true,
     hasStateSupplement: true,
     supplementName: 'SSP (State Supplementary Payment)',
-    notes: 'Full 2026 SSI/SSP rates implemented (15 categories)'
+    notes: 'Full 2026 SSI/SSP rates (15 categories)'
+  },
+  NY: {
+    code: 'NY',
+    name: 'New York',
+    hasCustomRates: true,
+    threshold1619b: 64017,
+    is209b: false,
+    medicaidExpanded: true,
+    hasStateSupplement: true,
+    supplementName: 'SSP',
+    notes: 'Full 2026 rates with metro/regional splits'
+  },
+  MA: {
+    code: 'MA',
+    name: 'Massachusetts',
+    hasCustomRates: true,
+    threshold1619b: 52577,
+    is209b: false,
+    medicaidExpanded: true,
+    hasStateSupplement: true,
+    supplementName: 'SSP',
+    notes: 'Full 2026 rates by category (Aged/Blind/Disabled)'
+  },
+  HI: {
+    code: 'HI',
+    name: 'Hawaii',
+    hasCustomRates: true,
+    threshold1619b: 53082,
+    is209b: false,
+    medicaidExpanded: true,
+    hasStateSupplement: true,
+    supplementName: 'State Supplement',
+    notes: 'Full 2026 rates (SSA-administered)'
   },
   TX: {
     code: 'TX',
@@ -33,17 +66,6 @@ export const STATES = {
     hasStateSupplement: false,
     notes: 'Federal rates only (no state supplement)'
   },
-  NY: {
-    code: 'NY',
-    name: 'New York',
-    hasCustomRates: false, // TODO: Implement NY rates
-    threshold1619b: 64017,
-    is209b: false,
-    medicaidExpanded: true,
-    hasStateSupplement: true,
-    supplementName: 'SSP',
-    notes: 'Has state supplement - federal rates shown as placeholder'
-  },
   PA: {
     code: 'PA',
     name: 'Pennsylvania',
@@ -58,7 +80,7 @@ export const STATES = {
     code: 'OTHER',
     name: 'Other State',
     hasCustomRates: false,
-    threshold1619b: 45000, // Conservative estimate
+    threshold1619b: 45000,
     is209b: false,
     medicaidExpanded: true,
     hasStateSupplement: false,
@@ -66,11 +88,11 @@ export const STATES = {
   }
 };
 
-// States with full rate implementations (for UI display)
-export const IMPLEMENTED_STATES = ['CA'];
+// States with full rate implementations
+export const IMPLEMENTED_STATES = ['CA', 'NY', 'MA', 'HI'];
 
 // States coming soon
-export const COMING_SOON_STATES = ['NY', 'MA', 'AK', 'CT', 'NJ'];
+export const COMING_SOON_STATES = ['AK', 'CT', 'NJ', 'VT'];
 
 // Get state by code
 export const getState = (code) => STATES[code] || STATES.OTHER;
