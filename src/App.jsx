@@ -7,13 +7,14 @@ import NewYorkCalculator from './components/calculators/NewYorkCalculator';
 import MassachusettsCalculator from './components/calculators/MassachusettsCalculator';
 import HawaiiCalculator from './components/calculators/HawaiiCalculator';
 import FederalCalculator from './components/calculators/FederalCalculator';
+import HoursOptimizer from './components/calculators/HoursOptimizer';
 import HelpCenter from './components/HelpCenter';
 import { STATES } from './data/states';
 
 function App() {
   const [showDisclaimer, setShowDisclaimer] = useState(true);
   const [selectedState, setSelectedState] = useState(null);
-  const [screen, setScreen] = useState('state'); // 'state' | 'home' | 'calculator' | 'help'
+  const [screen, setScreen] = useState('state'); // 'state' | 'home' | 'calculator' | 'hours' | 'help'
 
   const stateData = selectedState ? STATES[selectedState] : null;
 
@@ -60,6 +61,12 @@ function App() {
           : 'Federal rates estimate'
       },
       {
+        id: 'hours',
+        name: 'Hours Optimizer',
+        icon: '⏰',
+        desc: 'Find your ideal work schedule'
+      },
+      {
         id: 'help',
         name: 'Help Center',
         icon: '🆘',
@@ -93,7 +100,7 @@ function App() {
             {tools.map(tool => (
               <button
                 key={tool.id}
-                onClick={() => setScreen(tool.id === 'help' ? 'help' : 'calculator')}
+                onClick={() => setScreen(tool.id === 'help' ? 'help' : tool.id === 'hours' ? 'hours' : 'calculator')}
                 className="w-full flex items-center gap-4 p-4 border-2 border-gray-200 rounded-xl hover:border-blue-400 hover:bg-blue-50 text-left transition-all"
               >
                 <span className="text-3xl">{tool.icon}</span>
@@ -141,6 +148,35 @@ function App() {
         </Header>
         <Content>
           {getCalculator()}
+        </Content>
+      </Layout>
+    );
+  }
+
+  // Hours Optimizer Screen
+  if (screen === 'hours') {
+    // Get base rate based on state (simplified - uses independent living rate)
+    const getBaseRate = () => {
+      switch (selectedState) {
+        case 'CA': return 1233.94;
+        case 'NY': return 1081;
+        case 'MA': return 1108.39;
+        case 'HI': return 994;
+        default: return 994;
+      }
+    };
+
+    return (
+      <Layout>
+        <Header showBack onBack={() => setScreen('home')}>
+          <h1 className="text-lg font-bold">Hours Optimizer</h1>
+          <p className="text-blue-200 text-xs">{stateData?.name} • Find Your Sweet Spot</p>
+        </Header>
+        <Content>
+          <HoursOptimizer 
+            baseRate={getBaseRate()} 
+            stateName={stateData?.name}
+          />
         </Content>
       </Layout>
     );
