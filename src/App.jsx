@@ -173,9 +173,7 @@ function App() {
           <p className="text-blue-200 text-xs">{stateData?.name} • Find Your Sweet Spot</p>
         </Header>
         <Content>
-          <HoursOptimizer 
-            baseRate={getBaseRate()} 
-            stateName={stateData?.name}
+          <HoursOptimizer
           />
         </Content>
       </Layout>
